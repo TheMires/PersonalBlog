@@ -5,19 +5,19 @@ using System.Text.Json.Serialization;
 
 namespace BlogPessoal.src.model
 { 
-    [Table("tb_themes")]
+    [Table("tb_temas")]
 
-    public class ThemeModel
+    public class TemaModelo
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
         public int Id { get; set; }
 
-        [Required, StringLength(20)]
-        public string Description { get; set; }
+        [Required, StringLength(50)]
+        public string Descricao { get; set; }
 
         [JsonIgnore]
-        public List<PostModel> RelatedPosts { get; set; }
+        public List<PostagemModelo> RelatedPosts { get; set; }
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Generation\\.NET\\BPVS\\BlogPessoal\\BlogPessoal\\BlogPessoal.csproj": {}
+    "C:\\Users\\User\\Generation\\.NET\\BlogPessoal\\BlogPessoal\\BlogPessoal.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Generation\\.NET\\BPVS\\BlogPessoal\\BlogPessoal\\BlogPessoal.csproj": {
+    "C:\\Users\\User\\Generation\\.NET\\BlogPessoal\\BlogPessoal\\BlogPessoal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Generation\\.NET\\BPVS\\BlogPessoal\\BlogPessoal\\BlogPessoal.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Generation\\.NET\\BlogPessoal\\BlogPessoal\\BlogPessoal.csproj",
         "projectName": "BlogPessoal",
-        "projectPath": "C:\\Users\\User\\Generation\\.NET\\BPVS\\BlogPessoal\\BlogPessoal\\BlogPessoal.csproj",
+        "projectPath": "C:\\Users\\User\\Generation\\.NET\\BlogPessoal\\BlogPessoal\\BlogPessoal.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Generation\\.NET\\BPVS\\BlogPessoal\\BlogPessoal\\obj\\",
+        "outputPath": "C:\\Users\\User\\Generation\\.NET\\BlogPessoal\\BlogPessoal\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",

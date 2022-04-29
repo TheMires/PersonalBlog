@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlogPessoal.src.model
 {
-    [Table("tb_posts")]
-    public class PostModel
+    [Table("tb_postagens")]
+    public class PostagemModelo
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -13,18 +13,18 @@ namespace BlogPessoal.src.model
 
         [Required]
         [StringLength(30)]
-        public string Title { get; set; }
+        public string Titulo { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string Description { get; set; }
+        public string Descricao { get; set; }
 
-        public string Photo { get; set; }
+        public string Foto { get; set; }
 
-        [ForeignKey("fk_user")]
-        public UserModel Creator { get; set; }
+        [ForeignKey("fk_usuario")]
+        public UsuarioModelo Criador { get; set; }
 
-        [ForeignKey("fk_theme")]
-        public ThemeModel Theme { get; set; }
+        [ForeignKey("fk_tema")]
+        public TemaModelo Tema { get; set; }
     }
 }

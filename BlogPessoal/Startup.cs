@@ -31,13 +31,13 @@ namespace BlogPessoal
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            services.AddDbContext<PersonalBlogContext>(opt => opt.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<BlogPessoalContexto>(opt => opt.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, PersonalBlogContext context)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, BlogPessoalContexto context)
         {
             if (env.IsDevelopment())
             {

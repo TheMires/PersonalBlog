@@ -6,25 +6,25 @@ using System.Text.Json.Serialization;
 
 namespace BlogPessoal.src.modelos
 {
-    [Table("tb_user")]
-    public class UserModel
+    [Table("tb_usuario")]
+    public class UsuarioModelo
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required, StringLength(50)]
-        public string Name { get; set; }
+        public string Nome { get; set; }
 
         [Required, StringLength(30)]
         public string Email { get; set; }
 
         [Required, StringLength(30)]
-        public string Password { get; set; }
+        public string Senha { get; set; }
 
-        public string Photo { get; set; }
+        public string Foto { get; set; }
 
         [JsonIgnore]
-        public List<PostModel> MyPosts { get; set; }
+        public List<PostagemModelo> MyPosts { get; set; }
     }
 }
