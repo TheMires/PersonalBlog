@@ -25,6 +25,6 @@ namespace BlogPessoal.src.modelos
         public string Foto { get; set; }
 
         [JsonIgnore]
-        public List<PostagemModelo> MyPosts { get; set; }
+        public List<PostagemModelo> MinhasPostagens { get; set; }
     }
 }

@@ -26,9 +26,11 @@ namespace BlogPessoal.src.dtos
     /// </summary>
     public class AtualizarTemaDTO
     {
+        internal int Id;
+
         [Required, StringLength(20)]
         public string Descricao { get; set; }
-        public AtualizarTemaDTO(string descricao)
+        public AtualizarTemaDTO(int id, string descricao)
         {
             Descricao = descricao;
         }

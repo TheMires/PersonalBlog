@@ -6,7 +6,7 @@ namespace BlogPessoal.src.data
 {
     public class BlogPessoalContexto : DbContext
     {
-        public DbSet<UsuarioModelo> Usuarios { get; set; }
+        public DbSet<UsuarioModelo> Usuario { get; set; }
         public DbSet<TemaModelo> Temas { get; set; }
         public DbSet<PostagemModelo> Postagens { get; set; }
 

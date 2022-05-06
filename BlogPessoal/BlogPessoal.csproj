@@ -24,8 +24,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="src\repositorios\implementacoes\" />
-  </ItemGroup>
-
 </Project>

@@ -25,6 +25,7 @@ namespace BlogPessoal.src.dtos
     }
 
     public class AtualizarUsuarioDTO
+
     {
         [Required, StringLength(50)]
         public string Nome { get; set; }
@@ -34,6 +35,9 @@ namespace BlogPessoal.src.dtos
 
         public string Foto { get; set; }
 
+        [Required]
+        public int Id { get; set; }
+
         /// <summary>
         /// <para>Resumo: Classe espelho para alterar um novo usuario</para>
         /// <para>Criado por: Thamires Freitas</para>
@@ -41,7 +45,7 @@ namespace BlogPessoal.src.dtos
         /// <para>Data: 29/04/2022</para>
         /// </summary>
 
-        public AtualizarUsuarioDTO(string nome, string senha, string foto)
+        public AtualizarUsuarioDTO(int v, string nome, string senha, string foto)
         {
             Nome = nome;
             Senha = senha;

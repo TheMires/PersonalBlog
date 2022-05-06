@@ -30,11 +30,11 @@ namespace BlogPessoalTeste.Tests.data
             user.Senha = "123456";
             user.Foto = "LINKDAFOTO";
 
-            _context.Usuarios.Add(user); // adicionando usuario
+            _context.Usuario.Add(user); // adicionando usuario
 
             _context.SaveChanges(); // comita criação
 
-            Assert.IsNotNull(_context.Usuarios.FirstOrDefault(u => u.Email == "thamiresa@email.com"));
+            Assert.IsNotNull(_context.Usuario.FirstOrDefault(u => u.Email == "thamiresa@email.com"));
         }
     }
 }
