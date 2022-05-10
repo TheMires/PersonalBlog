@@ -1,8 +1,8 @@
-﻿using BlogPessoal.src.data;
+﻿using System.Collections.Generic;
+using System.Linq;
+using BlogPessoal.src.data;
 using BlogPessoal.src.dtos;
 using BlogPessoal.src.modelos;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace BlogPessoal.src.repositorios.implementacoes
 {
@@ -10,17 +10,50 @@ namespace BlogPessoal.src.repositorios.implementacoes
     {
         #region Atributos
 
-        private readonly BlogPessoalContexto _context;
+        private readonly BlogPessoalContexto _contexto;
 
         #endregion Atributos
 
         #region Construtores
+
         public UsuarioRepositorio(BlogPessoalContexto contexto)
         {
-            _context = contexto;
+            _contexto = contexto;
         }
+
         #endregion Construtores
+
         #region Métodos
+
+        public UsuarioModelo PegarUsuarioPeloId(int id)
+        {
+            return _contexto.Usuario.FirstOrDefault(u => u.Id == id);
+        }
+
+        public List<UsuarioModelo> PegarUsuariosPeloNome(string nome)
+        {
+            return _contexto.Usuario
+                        .Where(u => u.Nome.Contains(nome))
+                        .ToList();
+        }
+
+        public UsuarioModelo PegarUsuarioPeloEmail(string email)
+        {
+            return _contexto.Usuario.FirstOrDefault(u => u.Email == email);
+        }
+
+        public void NovoUsuario(NovoUsuarioDTO usuario)
+        {
+            _contexto.Usuario.Add(new UsuarioModelo
+            {
+                Email = usuario.Email,
+                Nome = usuario.Nome,
+                Senha = usuario.Senha,
+                Foto = usuario.Foto
+            });
+
+            _contexto.SaveChanges();
+        }
 
         public void AtualizarUsuario(AtualizarUsuarioDTO usuario)
         {
@@ -28,41 +61,19 @@ namespace BlogPessoal.src.repositorios.implementacoes
             usuarioExistente.Nome = usuario.Nome;
             usuarioExistente.Senha = usuario.Senha;
             usuarioExistente.Foto = usuario.Foto;
-            _context.Usuario.Update(usuarioExistente);
-            _context.SaveChanges();
+            _contexto.Usuario.Update(usuarioExistente);
+            _contexto.SaveChanges();
         }
 
         public void DeletarUsuario(int id)
         {
-            _context.Usuario.Remove(PegarUsuarioPeloId(id));
-            _context.SaveChanges();
-        }
-
-        public void NovoUsuario(NovoUsuarioDTO Usuario)
-        {
-            _context.Usuario.Add(new UsuarioModelo
-            {
-                Email = Usuario.Email,
-                Nome = Usuario.Nome,
-                Senha = Usuario.Senha,
-                Foto = Usuario.Foto
-            });
-            _context.SaveChanges();
-        }
-
-        public UsuarioModelo PegarUsuarioPeloEmail(string email)
-        {
-            return _context.Usuario.FirstOrDefault(u => u.Email == email);
-        }
-
-        public UsuarioModelo PegarUsuarioPeloId(int id)
-        {
-            return _context.Usuario.FirstOrDefault(u => u.Id == id);
+            _contexto.Usuario.Remove(PegarUsuarioPeloId(id));
+            _contexto.SaveChanges();
         }
 
         public List<UsuarioModelo> PegarUsuarioPeloNome(string nome)
         {
-            return _context.Usuario.Where(u => u.Nome.Contains(nome)).ToList();
+            throw new System.NotImplementedException();
         }
 
         #endregion Métodos

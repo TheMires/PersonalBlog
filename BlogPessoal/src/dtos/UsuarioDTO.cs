@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BlogPessoal.src.utilidades;
+using System.ComponentModel.DataAnnotations;
 
 namespace BlogPessoal.src.dtos
 {
@@ -15,12 +16,16 @@ namespace BlogPessoal.src.dtos
 
         public string Foto { get; set; }
 
-        public NovoUsuarioDTO(string nome, string email, string senha, string foto) 
+        [Required]
+        public TipoUsuario Tipo { get; set; }
+
+        public NovoUsuarioDTO(string nome, string email, string senha, string foto, TipoUsuario tipo) 
         {
             Nome = nome;
             Email = email;
             Senha = senha;
             Foto = foto;
+            Tipo = tipo;
         }
     }
 
@@ -34,6 +39,9 @@ namespace BlogPessoal.src.dtos
         public string Senha { get; set; }
 
         public string Foto { get; set; }
+
+        [Required]
+        public TipoUsuario Tipo { get; set; }
 
         [Required]
         public int Id { get; set; }
