@@ -4,127 +4,144 @@ using BlogPessoal.src.model;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BlogPessoal.src.repositorios.implementacoes
 {
     public class PostagemRepositorio : IPostagem
     {
         #region Atributos
+
         private readonly BlogPessoalContexto _context;
+
         #endregion Atributos
+
         #region Construtores
+
         public PostagemRepositorio(BlogPessoalContexto contexto)
         {
             _context = contexto;
         }
         #endregion Construtores
-        #region Métodos
 
-        public void AtualizarPostagem(AtualizarPostagemDTO postagem)
+        #region Métodos
+    
+        public async Task AtualizarPostagemAsync(AtualizarPostagemDTO postagem)
         {
-            var postagemExistente = PegarPostagemPeloId(postagem.Id);
+            var postagemExistente = await PegarPostagemPeloIdAsync(postagem.Id);
             postagemExistente.Titulo = postagem.Titulo;
             postagemExistente.Descricao = postagem.Descricao;
             postagemExistente.Foto = postagem.Foto;
-            postagemExistente.Tema = _context.Temas.FirstOrDefault(
-            t => t.Descricao == postagem.DescricaoTema);
+            postagemExistente.Tema = _context.Temas.FirstOrDefault(t => t.Descricao ==
+            postagem.DescricaoTema);
             _context.Postagens.Update(postagemExistente);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void DeletarPostagem(int id)
+        public async Task DeletarPostagemAsync(int id)
         {
-            _context.Postagens.Remove(PegarPostagemPeloId(id));
-            _context.SaveChanges();
+            _context.Postagens.Remove(await PegarPostagemPeloIdAsync(id));
+            await _context.SaveChangesAsync();
         }
 
-        public void NovaPostagem(NovaPostagemDTO postagem)
+        public async Task NovaPostagemAsync(NovaPostagemDTO postagem)
         {
-            _context.Postagens.Add(new PostagemModelo
+            await _context.Postagens.AddAsync(
+            new PostagemModelo
             {
                 Titulo = postagem.Titulo,
                 Descricao = postagem.Descricao,
                 Foto = postagem.Foto,
-                Criador = _context.Usuario.FirstOrDefault(
-u => u.Email == postagem.EmailCriador),
-                Tema = _context.Temas.FirstOrDefault(
-t => t.Descricao == postagem.DescricaoTema)
+                Criador = _context.Usuario.FirstOrDefault(u => u.Email ==
+                postagem.EmailCriador),
+                Tema = _context.Temas.FirstOrDefault(t => t.Descricao ==
+                postagem.DescricaoTema)
             });
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public PostagemModelo PegarPostagemPeloId(int id)
+        public async Task<PostagemModelo> PegarPostagemPeloIdAsync(int id)
         {
-            return _context.Postagens.FirstOrDefault(u => u.Id == id);
+            return await _context.Postagens
+             .Include(p => p.Criador)
+             .Include(p => p.Tema)
+             .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public List<PostagemModelo> PegarPostagensPorPesquisa(
- string titulo,
- string descricaoTema,
- string nomeCriador)
+        public async Task<List<PostagemModelo>> PegarPostagensPorPesquisaAsync(string titulo, string descricaoTema, string nomeCriador)
         {
             switch (titulo, descricaoTema, nomeCriador)
             {
                 case (null, null, null):
-                    return PegarTodasPostagens();
+                    return await PegarTodasPostagensAsync();
+
                 case (null, null, _):
-                    return _context.Postagens
+                    return await _context.Postagens
                     .Include(p => p.Tema)
                     .Include(p => p.Criador)
                     .Where(p => p.Criador.Nome.Contains(nomeCriador))
-                    .ToList();
+                    .ToListAsync();
+
                 case (null, _, null):
-                    return _context.Postagens
+                    return await _context.Postagens
                     .Include(p => p.Tema)
                     .Include(p => p.Criador)
                     .Where(p => p.Tema.Descricao.Contains(descricaoTema))
-                    .ToList();
+                    .ToListAsync();
+
                 case (_, null, null):
-                    return _context.Postagens
+                    return await _context.Postagens
                     .Include(p => p.Tema)
                     .Include(p => p.Criador)
                     .Where(p => p.Titulo.Contains(titulo))
-                    .ToList();
+                    .ToListAsync();
+
                 case (_, _, null):
-                    return _context.Postagens
+                    return await _context.Postagens
                     .Include(p => p.Tema)
                     .Include(p => p.Criador)
                     .Where(p =>
                     p.Titulo.Contains(titulo) &
                     p.Tema.Descricao.Contains(descricaoTema))
-                    .ToList();
+                    .ToListAsync();
+
                 case (null, _, _):
-                    return _context.Postagens
+                    return await _context.Postagens
                     .Include(p => p.Tema)
                     .Include(p => p.Criador)
                     .Where(p =>
                     p.Tema.Descricao.Contains(descricaoTema) &
                     p.Criador.Nome.Contains(nomeCriador))
-                    .ToList();
+                    .ToListAsync();
+
                 case (_, null, _):
-                    return _context.Postagens
+                    return await _context.Postagens
                     .Include(p => p.Tema)
                     .Include(p => p.Criador)
                     .Where(p =>
                     p.Titulo.Contains(titulo) &
                     p.Criador.Nome.Contains(nomeCriador))
-                    .ToList();
+                    .ToListAsync();
+
                 case (_, _, _):
-                    return _context.Postagens
+                    return await _context.Postagens
                     .Include(p => p.Tema)
                     .Include(p => p.Criador)
                     .Where(p =>
                     p.Titulo.Contains(titulo) |
                     p.Tema.Descricao.Contains(descricaoTema) |
                     p.Criador.Nome.Contains(nomeCriador))
-                    .ToList();
+                    .ToListAsync();
             }
         }
 
-        public List<PostagemModelo> PegarTodasPostagens()
+        public async Task<List<PostagemModelo>> PegarTodasPostagensAsync()
         {
-            return _context.Postagens.ToList();
+            return await _context.Postagens
+             .Include(p => p.Criador)
+             .Include(p => p.Tema)
+             .ToListAsync();
         }
+        #endregion
     }
-    #endregion Métodos
 }

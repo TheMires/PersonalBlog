@@ -33,20 +33,28 @@ namespace BlogPessoal
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Contexto
+            IConfigurationRoot config = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("appsettings.json")
+            .Build();
+
             // Configuração Banco de Dados
             services.AddDbContext<BlogPessoalContexto>(
-            opt =>
-            opt.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"])
-            );
-            // Configuração Repositorios
+            opt => opt.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+
+            // Repositorios
             services.AddScoped<IUsuario, UsuarioRepositorio>();
             services.AddScoped<ITema, TemaRepositorio>();
             services.AddScoped<IPostagem, PostagemRepositorio>();
+
             // Configuração de Controladores
             services.AddCors();
             services.AddControllers();
+
             // Configuração de Serviços
             services.AddScoped<IAutenticacao, AutenticacaoServicos>();
+
             // Configuração do Token Autenticação JWTBearer
             var chave = Encoding.ASCII.GetBytes(Configuration["Settings:Secret"]);
             services.AddAuthentication(a =>
@@ -69,8 +77,8 @@ namespace BlogPessoal
             );
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
-    BlogPessoalContexto contexto)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, BlogPessoalContexto contexto)
+        
         {
             // Ambiente de Desenvolvimento
             if (env.IsDevelopment())
@@ -79,13 +87,16 @@ namespace BlogPessoal
                 app.UseDeveloperExceptionPage();
             }
             // Ambiente de produção
+
             // Rotas
             app.UseRouting();
+
             app.UseCors(c => c
             .AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader()
             );
+
             // Autenticação e Autorização
             app.UseAuthentication();
             app.UseAuthorization();

@@ -7,8 +7,10 @@ namespace BlogPessoal.src.dtos
     {
         [Required]
         public string Email { get; set; }
+
         [Required]
         public string Senha { get; set; }
+
         public AutenticarDTO(string email, string senha)
         {
             Email = email;
@@ -21,8 +23,8 @@ namespace BlogPessoal.src.dtos
         public string Email { get; set; }
         public TipoUsuario Tipo { get; set; }
         public string Token { get; set; }
-        public AutorizacaoDTO(int id, string email, TipoUsuario tipo, string
-        token)
+        public AutorizacaoDTO(int id, string email, TipoUsuario tipo, string token)
+
         {
             Id = id;
             Email = email;
