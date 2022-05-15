@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 using BlogPessoal.src.dtos;
 using BlogPessoal.src.modelos;
 using BlogPessoal.src.repositorios;
-using BlogPessoal.src.servicos.BlogPessoal.src.servicos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace BlogPessoal.src.servicos.implementacoes
 {
+    /// <summary>
+    /// <para>Resumo: Classe responsavel por implementar IAutenticacao</para>
+    /// <para>Criado por: Thamires Freitas</para>
+    /// <para>Versão: 1.0</para>
+    /// <para>Data: 13/05/2022</para>
+    /// </summary>
     public class AutenticacaoServicos : IAutenticacao
     {
         #region Atributos
@@ -29,17 +34,26 @@ namespace BlogPessoal.src.servicos.implementacoes
             _repositorio = repositorio;
             Configuracao = configuration;
         }
-        
+
         #endregion
 
         #region Métodos
-        
+
+        /// <summary>
+        /// <para>Resumo: Método responsavel por criptografar senha</para>
+        /// </summary>
+        /// <param name="senha">Senha a ser criptografada</param>
+        /// <returns>string</returns>
         public string CodificarSenha(string senha)
         {
             var bytes = Encoding.UTF8.GetBytes(senha);
             return Convert.ToBase64String(bytes);
         }
 
+        /// <summary>
+        /// <para>Resumo: Método assíncrono responsavel por criar usuario sem duplicar no banco</para>
+        /// </summary>
+        /// <param name="dto">NovoUsuarioDTO</param>
         public async Task CriarUsuarioSemDuplicarAsync(NovoUsuarioDTO dto)
         {
             var usuarios = await _repositorio.PegarUsuarioPeloEmailAsync(dto.Email);
@@ -51,6 +65,11 @@ namespace BlogPessoal.src.servicos.implementacoes
             await _repositorio.NovoUsuarioAsync(dto);
         }
 
+        /// <summary>
+        /// <para>Resumo: Método responsavel por gerar token JWT</para>
+        /// </summary>
+        /// <param name="usuario">UsuarioModelo</param>
+        /// <returns>string</returns>
         public string GerarToken(UsuarioModelo usuario)
         {
             var tokenManipulador = new JwtSecurityTokenHandler();
@@ -73,6 +92,13 @@ namespace BlogPessoal.src.servicos.implementacoes
             return tokenManipulador.WriteToken(token);
         }
 
+        /// <summary>
+        /// <para>Resumo: Método assíncrono responsavel devolver autorização para usuario autenticado</para>
+        /// </summary>
+        /// <param name="dto">AutenticarDTO</param>
+        /// <returns>AutorizacaoDTO</returns>
+        /// <exception cref="Exception">Usuário não encontrado</exception>
+        /// <exception cref="Exception">Senha incorreta</exception>
         public async Task<AutorizacaoDTO> PegarAutorizacaoAsync(AutenticarDTO dto)
         {
             var usuario = await _repositorio.PegarUsuarioPeloEmailAsync(dto.Email);

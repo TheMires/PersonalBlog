@@ -24,14 +24,17 @@ namespace BlogPessoal.src.dtos
     /// <para>Versão: 1.0</para>
     /// <para>Data: 29/04/2022</para>
     /// </summary>
+    /// 
     public class AtualizarTemaDTO
     {
-        internal int Id;
+        [Required]
+        public int Id { get; set; }
 
         [Required, StringLength(20)]
         public string Descricao { get; set; }
         public AtualizarTemaDTO(int id, string descricao)
         {
+            Id = id;
             Descricao = descricao;
         }
     }

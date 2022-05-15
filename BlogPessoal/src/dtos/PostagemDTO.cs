@@ -2,6 +2,12 @@
 
 namespace BlogPessoal.src.dtos
 {
+    /// <summary>
+    /// <para>Resumo: Classe espelho para criar uma nova postagem</para>
+    /// <para>Criado por: Thamires Freitas</para>
+    /// <para>Versão: 1.0</para>
+    /// <para>Data: 13/05/2022</para>
+    /// </summary>
     public class NovaPostagemDTO
     {
         [Required, StringLength(30)]
@@ -35,7 +41,8 @@ namespace BlogPessoal.src.dtos
     /// </summary>
     public class AtualizarPostagemDTO
     {
-        internal int Id;
+        [Required]
+        public int Id { get; set; }
 
         [Required, StringLength(30)]
         public string Titulo { get; set; }
@@ -48,8 +55,9 @@ namespace BlogPessoal.src.dtos
         [Required]
         public string DescricaoTema { get; set; }
 
-        public AtualizarPostagemDTO(int idPostagem, string titulo, string descricao, string foto, string descricaoTema)
+        public AtualizarPostagemDTO(int id, string titulo, string descricao, string foto, string descricaoTema)
         {
+            Id = id;
             Titulo = titulo;
             Descricao = descricao;
             Foto = foto;

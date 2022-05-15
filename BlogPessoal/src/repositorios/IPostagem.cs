@@ -5,6 +5,13 @@ using System.Threading.Tasks;
 
 namespace BlogPessoal.src.repositorios
 {
+    /// <summary>
+    /// <para>Resumo: Responsavel por representar ações de CRUD de postagem</para>
+    /// <para>Criado por: Thamires Freitas</para>
+    /// <para>Versão: 1.0</para>
+    /// <para>Data: 13/05/2022</para>
+    /// </summary>
+    
     public interface IPostagem
     {
         Task<List<PostagemModelo>> PegarTodasPostagensAsync();

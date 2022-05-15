@@ -4,7 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace BlogPessoal.src.model
-{ 
+{
+    /// <summary>
+    /// <para>Resumo: Classe responsavel por representar tb_temas no banco.</para>
+    /// <para>Criado por: Thamires Freitas</para>
+    /// <para>Versão: 1.0</para>
+    /// <para>Data: 13/05/2022</para>
+    /// </summary>
     [Table("tb_temas")]
 
     public class TemaModelo

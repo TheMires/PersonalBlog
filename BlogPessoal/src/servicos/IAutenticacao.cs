@@ -2,11 +2,15 @@
 using BlogPessoal.src.modelos;
 using System.Threading.Tasks;
 
-namespace BlogPessoal.src.servicos
-{
-    namespace BlogPessoal.src.servicos
+ namespace BlogPessoal.src.servicos
     {
-        public interface IAutenticacao
+    /// <summary>
+    /// <para>Resumo: Interface Responsavel por representar ações de autenticação</para>
+    /// <para>Criado por: Thamires Freitas</para>
+    /// <para>Versão: 1.0</para>
+    /// <para>Data: 13/05/2022</para>
+    /// </summary>
+    public interface IAutenticacao
         {
             string CodificarSenha(string senha);
             Task CriarUsuarioSemDuplicarAsync(NovoUsuarioDTO dto);
@@ -14,4 +18,3 @@ namespace BlogPessoal.src.servicos
             Task <AutorizacaoDTO> PegarAutorizacaoAsync(AutenticarDTO dto);
         }
     }
-}

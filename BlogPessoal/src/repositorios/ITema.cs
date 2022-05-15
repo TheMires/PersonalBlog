@@ -7,7 +7,7 @@ namespace BlogPessoal.src.repositorios
 {
     /// <summary>
     /// <para>Resumo: Responsavel por representar ações de CRUD de tema</para>
-    /// <para>Criado por: Gustavo Boaz</para>
+    /// <para>Criado por: Thamires Freitas</para>
     /// <para>Versão: 1.0</para>
     /// <para>Data: 29/04/2022</para>
     /// </summary>
