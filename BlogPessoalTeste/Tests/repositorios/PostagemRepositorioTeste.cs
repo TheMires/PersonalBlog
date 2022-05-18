@@ -156,7 +156,7 @@ namespace BlogPessoalTeste.Testes.repositorios
             );
 
             // AND - E que registro 2 temas
-           await _repositorioT.NovoTemaAsync(new NovoTemaDTO("C#"));
+            await _repositorioT.NovoTemaAsync(new NovoTemaDTO("C#"));
             await _repositorioT.NovoTemaAsync(new NovoTemaDTO("Java"));
 
             // WHEN - Quando registro 3 postagens
@@ -188,15 +188,12 @@ namespace BlogPessoalTeste.Testes.repositorios
                 )
             );
 
+            var postagensTeste1 = await _repositorioP.PegarPostagensPorPesquisaAsync("massa", null, null);
+            var postagensTeste2 = await _repositorioP.PegarPostagensPorPesquisaAsync(null, "C#", null);
+            var postagensTeste3 = await _repositorioP.PegarPostagensPorPesquisaAsync(null, null, "gustavo@email.com");
+
             // WHEN - Quando eu busco as postagen
             // THEN - Eu tenho as postagens que correspondem aos criterios
-            var postagensTeste1 = await
- _repositorioP.PegarPostagensPorPesquisaAsync("massa", null, null);
-            var postagensTeste2 = await
-            _repositorioP.PegarPostagensPorPesquisaAsync(null, "C#", null);
-            var postagensTeste3 = await
-            _repositorioP.PegarPostagensPorPesquisaAsync(null, null, "Gustavo Boaz");
-
             Assert.AreEqual(2, postagensTeste1.Count);
             Assert.AreEqual(2, postagensTeste2.Count);
             Assert.AreEqual(2, postagensTeste3.Count);
